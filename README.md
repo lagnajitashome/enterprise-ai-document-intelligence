@@ -15,7 +15,7 @@ The application uses a multi-agent architecture with **LangGraph**, **FastAPI**,
 - 🔎 FAISS-based vector similarity search
 - 📚 Source-aware document retrieval
 
-##  Architecture
+## 🏗️ Architecture
 
 ```mermaid
 flowchart TD
@@ -26,28 +26,26 @@ flowchart TD
 
     C --> D[LangGraph Supervisor]
 
-    D -->|QA| E[QA Agent]
-    D -->|Summary| F[Summary Agent]
-    D -->|Comparison| G[Comparison Agent]
-    D -->|FAQ| H[FAQ Agent]
+    D --> E[QA Agent]
+    D --> F[Summary Agent]
+    D --> G[Comparison Agent]
+    D --> H[FAQ Agent]
 
     E --> I[FAISS Vector Store]
     F --> I
     H --> I
 
-    I --> J[Gemini Embeddings]
-    I --> K[Relevant Document Chunks]
+    I --> J[Retrieved Document Context]
 
-    K --> E
-    K --> F
-    K --> H
+    J --> E
+    J --> F
+    J --> H
 
-    E --> L[Gemini LLM]
-    F --> L
-    G --> L
-    H --> L
+    E --> K[Gemini LLM]
+    F --> K
+    G --> K
+    H --> K
 
-    L --> M[Final Response]
-
-    M --> B
+    K --> L[Final Response]
+    L --> B
 ```
