@@ -21,9 +21,7 @@ The application uses a multi-agent architecture with **LangGraph**, **FastAPI**,
 flowchart TD
 
     A[User] --> B[Streamlit UI]
-
     B --> C[FastAPI Backend]
-
     C --> D[LangGraph Supervisor]
 
     D --> E[QA Agent]
@@ -31,21 +29,22 @@ flowchart TD
     D --> G[Comparison Agent]
     D --> H[FAQ Agent]
 
-    E --> I[FAISS Vector Store]
+    E --> I[Retrieval Layer]
     F --> I
     H --> I
 
-    I --> J[Retrieved Document Context]
+    I --> J[FAISS Vector Store]
+    J --> K[Relevant Document Chunks]
 
-    J --> E
-    J --> F
-    J --> H
+    K --> E
+    K --> F
+    K --> H
 
-    E --> K[Gemini LLM]
-    F --> K
-    G --> K
-    H --> K
+    E --> L[Gemini LLM]
+    F --> L
+    G --> L
+    H --> L
 
-    K --> L[Final Response]
-    L --> B
+    L --> M[Response]
+    M --> B
 ```
