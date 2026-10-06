@@ -15,36 +15,42 @@ The application uses a multi-agent architecture with **LangGraph**, **FastAPI**,
 - 🔎 FAISS-based vector similarity search
 - 📚 Source-aware document retrieval
 
-## 🏗️ Architecture
+##  Architecture
+
+### Application Architecture
 
 ```mermaid
-flowchart TD
+flowchart LR
 
-    A[User] --> B[Streamlit UI]
-    B --> C[FastAPI Backend]
-    C --> D[LangGraph Supervisor]
+    A[User]
+    --> B[Streamlit UI]
+    --> C[FastAPI Backend]
+    --> D[LangGraph Supervisor]
 
     D --> E[QA Agent]
     D --> F[Summary Agent]
     D --> G[Comparison Agent]
     D --> H[FAQ Agent]
 
-    E --> I[Retrieval Layer]
+    E --> I[Response]
     F --> I
+    G --> I
     H --> I
 
-    I --> J[FAISS Vector Store]
-    J --> K[Relevant Document Chunks]
+    I --> B
+```
 
-    K --> E
-    K --> F
-    K --> H
+### RAG Pipeline
 
-    E --> L[Gemini LLM]
-    F --> L
-    G --> L
-    H --> L
+```mermaid
+flowchart LR
 
-    L --> M[Response]
-    M --> B
+    A[PDF Document]
+    --> B[Text Extraction]
+    --> C[Text Chunking]
+    --> D[Gemini Embeddings]
+    --> E[FAISS Vector Store]
+    --> F[Relevant Document Chunks]
+    --> G[Gemini LLM]
+    --> H[Final Answer]
 ```
